@@ -1,4 +1,4 @@
-.PHONY: install test run docker-build docker-run docker-test clean
+.PHONY: install test run lint format docker-build docker-run docker-test clean
 
 IMAGE_NAME := data-engineering-demo
 
@@ -31,3 +31,10 @@ clean:
 	python -c "import shutil; shutil.rmtree('__pycache__', ignore_errors=True)"
 	python -c "import shutil; shutil.rmtree('.pytest_cache', ignore_errors=True)"
 	python -c "import os, shutil; [shutil.rmtree(os.path.join(root, d), ignore_errors=True) for root, dirs, files in os.walk('.') for d in dirs if d == '__pycache__']"
+# Check code style
+lint:
+	python -m ruff check .
+
+# Format code
+format:
+	python -m ruff format .
